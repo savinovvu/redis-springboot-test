@@ -1,0 +1,1 @@
+to start execute command: docker-compose up

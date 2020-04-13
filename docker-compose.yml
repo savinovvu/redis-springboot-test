@@ -1,0 +1,36 @@
+version: '3.4'
+x-healthcheck:
+  &health_check
+  interval: 1m
+  timeout: 10s
+  retries: 2
+  start_period: 1m
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./infrastructure/app.dockerfile
+    container_name: redis-app
+    ports:
+      - 8080:8080
+    environment:
+      - REDIS_HOST=redis
+    restart: unless-stopped
+    depends_on:
+      - redis
+    networks:
+      - network1
+    entrypoint: sh -c "java -Dfile.encoding=UTF-8 -jar /opt/redis-test.jar"
+
+  redis:
+    image: redis:5.0.8-alpine
+    container_name: redis
+    healthcheck:
+      <<: *health_check
+      test:  ["CMD", "./infrastructure/redis-healthcheck.sh"]
+    networks:
+      - network1
+
+networks:
+  network1:
+    driver: bridge
