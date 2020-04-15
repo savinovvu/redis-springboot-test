@@ -3,6 +3,7 @@ package ru.inbox.savinov_vu.app.controller;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -12,7 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.inbox.savinov_vu.app.dto.LinkContainerDto;
 import ru.inbox.savinov_vu.app.dto.LinkFilterDto;
 import ru.inbox.savinov_vu.app.service.LinkService;
-import ru.inbox.savinov_vu.test_helpers.config.AbstractSpringBootTest;
+import ru.inbox.savinov_vu.test_helpers.config.AbstractWebMvcSrpingBootTest;
 import ru.inbox.savinov_vu.test_helpers.factories.FilterFactory;
 import ru.inbox.savinov_vu.test_helpers.factories.link.LinkContainerDtoFactory;
 import ru.inbox.savinov_vu.test_helpers.factories.link.LinkDtoFactory;
@@ -30,8 +31,8 @@ import static ru.inbox.savinov_vu.app.constants.StringConstant.OK;
 import static ru.inbox.savinov_vu.app.constants.StringConstant.TO;
 
 
-
-class LinkControllerTest extends AbstractSpringBootTest {
+@WebMvcTest(LinkController.class)
+class LinkControllerTest extends AbstractWebMvcSrpingBootTest {
 
     @Resource
     private MockMvc mockMvc;
